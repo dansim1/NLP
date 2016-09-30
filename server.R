@@ -45,7 +45,7 @@ dtm_con_samp <- DocumentTermMatrix(englishVCorpus_Con)
 dtm_con_samp
 wordDataFrame <- as.data.frame(as.matrix(dtm_con_samp))
 
-writeCorpus(dtm_con_samp, "C:\Users\Dan\Desktop\Test")
+writeCorpus(dtm_con_samp, "C:\Users\Dan\Desktop\TestCorpus")
 
 shinyServer(
   function(input, output) {
@@ -56,8 +56,8 @@ shinyServer(
     #             })
     
     ## Near the VERIFY button: text that tells you that you are unverified, or that you need to double-check your credentials
-    output$oWordPredictions <- renderText({
-      input$submitButton
+    output$oWordPredictions <- renderText(
+      input$submitButton)
       #             if (nchar(input$sentenceInputVar) == 0)
       #                 paste("Please type a sentence, then press 'Submit'")
       #             else if (nchar(input$sentenceInputVar) > 0 &
@@ -66,8 +66,9 @@ shinyServer(
       #             else
       results <- getNextOneWordPossibilities <- function(corpus, phrase) {
         character_string <- corpusToString(corpus)
+      }
         
-        phrase <- gsub("\\s", "\\\\s", phrase)
+       phrase <- gsub("\\s", "\\\\s", phrase)
         pattern <- paste(phrase, "\\s([^\\s]*)", sep = "")
         #pattern <- paste(phrase, "\\s([^\\s\\S.*..])", sep = "")
         print(pattern)
@@ -75,9 +76,6 @@ shinyServer(
         matches <- str_match_all(character_string, pattern)
         # print(matches)
         return(matches[[1]][,2])
-      }
-        )
-        )
-      ))
-    })
-  })
+    
+
+    
